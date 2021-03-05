@@ -24,4 +24,4 @@ const dishSchema = new mongoose.Schema({
 
 const Dish = mongoose.model("Dish", dishSchema);
 
-export default Dish;
+module.exports = Dish;

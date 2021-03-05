@@ -20,9 +20,13 @@ const restaurantSchema = new mongoose.Schema({
   contactNumber: {
     type: Number,
     required: [true, "Please enter the contact number of the restaurant"]
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
   }
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 
-export default Restaurant;
+module.exports = Restaurant;
