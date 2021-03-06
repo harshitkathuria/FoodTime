@@ -1,3 +1,4 @@
+const Dish = require("../models/Dish");
 const Restaurant = require("../models/Restaurant");
 
 // Create Restaurant
@@ -5,7 +6,7 @@ exports.create = async (req, res, next) => {
   try {
     const { name, address, cuisine, description, contactNumber } = req.body;
     const user = req.user;
-    const restaurant = await Restaurant.create({
+    const restaurant = new Restaurant({
       name,
       address,
       cuisine,
@@ -13,6 +14,11 @@ exports.create = async (req, res, next) => {
       contactNumber,
       user
     });
+
+    const dishes = await this.addDish(req.body.dishes);
+    restaurant.dishes = dishes;
+    restaurant.save();
+
     res.status(200).json({ status: "success", data: { restaurant } });
   } catch (err) {
     console.log(err.message);
@@ -43,12 +49,21 @@ exports.getRestaurant = async (req, res) => {
 };
 
 // Get Restaurant by user
-exports.getResOfUser = async (req, res) => {
+exports.getMyRes = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findById({ user: req.user });
+    const restaurant = await Restaurant.find({ user: req.user });
     res.status(200).json({ status: "success", data: { restaurant } });
   } catch (err) {
     console.log(err.message);
     res.status(400).json({ status: "error", msg: err.message });
   }
+};
+
+// Add Dishes to the restaurant
+exports.addDish = async dishesData => {
+  const dishes = await Dish.create(dishesData);
+  let dishes_ids = [];
+  dishes_ids = dishes.map(dish => dish._id);
+  console.log(dishes_ids);
+  return dishes_ids;
 };

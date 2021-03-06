@@ -24,7 +24,13 @@ const restaurantSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User"
-  }
+  },
+  dishes: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Dish"
+    }
+  ]
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
