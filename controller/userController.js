@@ -22,3 +22,35 @@ exports.getUser = async (req, res) => {
     res.status(400).json({ status: "error", msg: err.message });
   }
 };
+
+// Update User
+exports.updateUser = async (req, res) => {
+  try {
+    if (req.body.password) {
+      res.status(400).json({
+        status: "fail",
+        msg: "You cannot update password using this route"
+      });
+    }
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    });
+    res.status(201).json({ status: "success", data: { user } });
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).json({ status: "error", msg: err.message });
+  }
+};
+
+// Delete User
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res
+      .status(204)
+      .json({ status: "success", msg: "User successfully deleted" });
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).json({ status: "error", msg: err.message });
+  }
+};

@@ -1,23 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controller/userController");
+const dishController = require("../controller/dishController");
 const authController = require("../controller/authController");
 
-router.get("/", userController.getAllUsers);
-router.get("/:id", userController.getUser);
+router.get("/", dishController.getAllDishes);
+router.get("/:id", dishController.getDish);
 
 router.use(authController.protect);
 
 router.patch(
   "/:id",
-  authController.roles(["admin", "user"]),
-  userController.updateUser
+  authController.roles(["admin"]),
+  dishController.updateDish
 );
 
 router.delete(
   "/:id",
   authController.roles(["admin"]),
-  userController.deleteUser
+  dishController.deleteDish
 );
 
 module.exports = router;

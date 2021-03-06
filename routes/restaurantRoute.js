@@ -18,4 +18,14 @@ router.post(
   restaurantController.create
 );
 
+router.patch(
+  "/:id",
+  authController.roles(["admin"], restaurantController.updateRestaurant)
+);
+
+router.delete(
+  "/:id",
+  authController.roles(["admin"], restaurantController.deleteRestaurant)
+);
+
 module.exports = router;
