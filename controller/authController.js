@@ -1,7 +1,37 @@
-const axios = require("axios");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+
+// Protect from non-logged user
+exports.protect = async (req, res, next) => {
+  const token = req.header("x-auth-token");
+
+  if (!token) {
+    return res.status(401).json({ msg: "Authorization denied" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded.id;
+    next();
+  } catch (err) {
+    console.log(err.message);
+    res.status(401).json({ msg: err.message });
+  }
+};
+
+// Only for certain roles
+exports.roles = roles => {
+  return async (req, res, next) => {
+    const user = await User.findById(req.user);
+    if (!roles.includes(user.role)) {
+      return res
+        .status(403)
+        .json({ status: "fail", msg: "You cannot access this page" });
+    }
+    next();
+  };
+};
 
 // Register
 exports.register = async (req, res) => {
@@ -39,6 +69,6 @@ exports.login = async (req, res) => {
       res.status(400).json({ status: "fail", msg: "Invalid Credentials" });
     }
   } catch (err) {
-    res.status(400).json({ status: "fail", msg: "Server Error" });
+    res.status(400).json({ status: "fail", msg: err.message });
   }
 };
