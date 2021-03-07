@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "start:dev": "nodemon server.js"
+    "server:dev": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "client-install": "npm install --prefix client",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client\""
   },
   "keywords": [],
   "author": "Harshit Kathuria",
@@ -13,10 +16,12 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
+    "concurrently": "^6.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.18",
+    "react-router-dom": "^5.2.0",
     "validator": "^13.5.2"
   },
   "devDependencies": {
