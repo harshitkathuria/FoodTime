@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import AuthContext from "../context/auth/authContext";
+import AlertContext from "../context/alert/alertContext";
+import Alerts from "./Alerts";
 
 const Register = props => {
   const [user, setUser] = useState({
@@ -13,7 +15,9 @@ const Register = props => {
   });
 
   const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
 
+  const { setAlert } = alertContext;
   const { register, error, isAuthenticated, clearErrors } = authContext;
 
   const { name, email, password, confirmPassword, role } = user;
@@ -21,6 +25,11 @@ const Register = props => {
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/home");
+    }
+
+    if (error) {
+      setAlert(error, "danger");
+      clearErrors();
     }
   }, [error, isAuthenticated, props.history]);
 

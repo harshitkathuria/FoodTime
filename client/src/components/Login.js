@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Alerts from "./Alerts";
+import AlertContext from "../context/alert/alertContext";
 import AuthContext from "../context/auth/authContext";
 
 const Login = props => {
@@ -9,13 +11,20 @@ const Login = props => {
   });
 
   const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
 
+  const { setAlert } = alertContext;
   const { login, error, isAuthenticated, clearErrors } = authContext;
   const { email, password } = user;
 
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/home");
+    }
+
+    if (error) {
+      setAlert(error, "danger");
+      clearErrors();
     }
   }, [error, isAuthenticated, props.history]);
 

@@ -36,7 +36,7 @@ exports.roles = roles => {
 // Get User from token
 exports.getUserFromToken = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user).select("-password");
     res.json({ status: "success", data: { user } });
   } catch (err) {
     console.error(err.message);

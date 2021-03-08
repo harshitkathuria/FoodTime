@@ -4,10 +4,16 @@ import Footer from "./components/layout/Footer";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import AuthHome from "./components/AuthHome";
 
 import "./App.css";
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
+import setAuthToken from "./components/utils/setAuthToken";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
   return (
@@ -19,6 +25,7 @@ function App() {
             <div className="main">
               <Switch>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/home" component={AuthHome} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
               </Switch>
