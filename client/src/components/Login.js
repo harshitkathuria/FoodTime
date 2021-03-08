@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../context/auth/authContext";
 
-const Login = () => {
+const Login = props => {
   const [user, setUser] = useState({
     email: "",
     password: ""
   });
 
+  const authContext = useContext(AuthContext);
+
+  const { login, error, isAuthenticated, clearErrors } = authContext;
   const { email, password } = user;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push("/home");
+    }
+  }, [error, isAuthenticated, props.history]);
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -15,11 +25,13 @@ const Login = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    login(user);
   };
 
   return (
     <div className="form-container container">
       <div className="card">
+        <Alerts />
         <div className="card-content">
           <div className="card-title center">
             <h4 style={{ fontWeight: 500 }}>Login to your account</h4>
@@ -27,7 +39,13 @@ const Login = () => {
           <div className="row">
             <form className="col s6 offset-s3" onSubmit={onSubmit}>
               <div className="input-field">
-                <input type="email" name="email" required value={email} />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={email}
+                  onChange={onChange}
+                />
                 <label htmlFor="email">Email</label>
               </div>
               <div className="input-field">
@@ -36,6 +54,7 @@ const Login = () => {
                   name="password"
                   required
                   value={password}
+                  onChange={onChange}
                 />
                 <label htmlFor="password">Password</label>
               </div>

@@ -1,6 +1,7 @@
 import {
   REGISTER_USER,
   LOGIN_USER,
+  USER_LOADED,
   AUTH_FAIL,
   LOGOUT,
   CLEAR_ERRORS
@@ -8,11 +9,19 @@ import {
 
 export default (state, action) => {
   switch (action.type) {
-    case REGISTER_USER:
-    case LOGIN_USER:
+    case USER_LOADED:
       return {
         ...state,
-        user: action.payload,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload
+      };
+
+    case REGISTER_USER:
+    case LOGIN_USER:
+      localStorage.setItem("token", action.payload.token);
+      return {
+        ...state,
         isAuthenticated: true,
         loading: false
       };

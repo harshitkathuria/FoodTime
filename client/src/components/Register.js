@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Register = () => {
+import AuthContext from "../context/auth/authContext";
+
+const Register = props => {
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    role: ""
+    role: "null"
   });
 
+  const authContext = useContext(AuthContext);
+
+  const { register, error, isAuthenticated, clearErrors } = authContext;
+
   const { name, email, password, confirmPassword, role } = user;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push("/home");
+    }
+  }, [error, isAuthenticated, props.history]);
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -22,11 +34,21 @@ const Register = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setAlert("Passwords do not match", "primary");
+      clearErrors();
+    } else if (role === "null") {
+      setAlert("Please select a role", "primary");
+      clearErrors();
+    } else {
+      register(user);
+    }
   };
 
   return (
     <div className="form-container container">
       <div className="card">
+        <Alerts />
         <div className="card-content">
           <div className="card-title center">
             <h4 style={{ fontWeight: 500 }}>Register Your Account</h4>
@@ -76,16 +98,12 @@ const Register = () => {
                 <label htmlFor="name">Confirm Password</label>
               </div>
               <div className="input-field">
-                <select
-                  // className="browser-default"
-                  value={role}
-                  onChange={handleSelectChange}
-                >
-                  <option value="" disabled>
+                <select required value={role} onChange={handleSelectChange}>
+                  <option value="null" defaultValue>
                     Choose your option
                   </option>
-                  <option value="Restaurant Manager">Restaurant Manager</option>
-                  <option value="Consumer">Consumer</option>
+                  <option value="restaurant">Restaurant Manager</option>
+                  <option value="user">Consumer</option>
                 </select>
                 <label>Apply as</label>
               </div>
