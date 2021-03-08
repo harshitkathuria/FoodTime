@@ -4,6 +4,27 @@
   flex-direction: column;
 }
 
+.alert {
+  max-width: 50% !important;
+  min-width: 30%;
+  margin: auto;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 0.3rem;
+}
+
+.primary {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.danger {
+  background-color: #f44336;
+  color: white;
+}
+
 .lead {
   font-size: 1.3rem;
   font-weight: 400;
