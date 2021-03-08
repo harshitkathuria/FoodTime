@@ -33,6 +33,17 @@ exports.roles = roles => {
   };
 };
 
+// Get User from token
+exports.getUserFromToken = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json({ status: "success", data: { user } });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ status: "fail", msg: "Server Error" });
+  }
+};
+
 // Register
 exports.register = async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -40,7 +51,9 @@ exports.register = async (req, res) => {
   let user = await User.findOne({ email });
   try {
     if (user) {
-      res.status(400).json({ status: "error", msg: "User already exists" });
+      return res
+        .status(400)
+        .json({ status: "error", msg: "User already exists" });
     }
     user = await User.create({ name, email, password, role });
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {

@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
@@ -11,6 +12,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
