@@ -9,6 +9,7 @@ import AuthHome from "./components/AuthHome";
 import "./App.css";
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
+import PrivateRoute from "./components/utils/PrivateRoute";
 import setAuthToken from "./components/utils/setAuthToken";
 
 if (localStorage.token) {
@@ -25,7 +26,7 @@ function App() {
             <div className="main">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/home" component={AuthHome} />
+                <PrivateRoute exact path="/home" component={AuthHome} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
               </Switch>
