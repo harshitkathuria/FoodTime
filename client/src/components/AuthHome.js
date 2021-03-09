@@ -39,8 +39,6 @@ const AuthHome = () => {
       <Dishes />
     </div>
   );
-  {
-  }
 };
 
 export default AuthHome;

@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 
 const CreateResModal = () => {
+  const [res, setRes] = useState({
+    name: "",
+    cuisine: "Multi-Cuisine",
+    address: "",
+    description: "",
+    contactNumber: ""
+  });
+
+  const { name, cuisine, address, description, contactNumber } = res;
+
+  const onChange = e => {
+    setRes({ [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = () => {};
+
   return (
     <div id="restaurant" className="restaurant-modal modal modal-fixed-footer">
       <div className="modal-content">
         <h4 className="center heading">Add Restaurant</h4>
         <div className="row">
-          <form className="form col s12">
+          <form onSubmit={onSubmit} className="form col s12">
             <div className="row">
               <div className="input-field col s9 offset-s1">
                 <i className="material-icons prefix">badge</i>
-                <input id="name" name="name" type="text" required />
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={name}
+                  required
+                  onChange={onChange}
+                />
                 <label htmlFor="name">Name</label>
               </div>
             </div>
@@ -20,9 +43,10 @@ const CreateResModal = () => {
                 <input
                   id="cuisine"
                   name="cuisine"
-                  defaultValue="Multi-Cuisine"
                   type="text"
+                  value={cuisine}
                   required
+                  onChange={onChange}
                 />
                 <label htmlFor="cuisine" className="active">
                   Cuisine
@@ -32,7 +56,14 @@ const CreateResModal = () => {
             <div className="row">
               <div className="input-field col s9 offset-s1">
                 <i className="material-icons prefix">home</i>
-                <input id="address" name="address" type="text" required />
+                <input
+                  id="address"
+                  name="address"
+                  type="text"
+                  value={address}
+                  required
+                  onChange={onChange}
+                />
                 <label htmlFor="address">Address</label>
               </div>
             </div>
@@ -43,7 +74,9 @@ const CreateResModal = () => {
                   name="decription"
                   id="description"
                   className="materialize-textarea"
+                  value={description}
                   required
+                  onChange={onChange}
                 ></textarea>
                 <label htmlFor="description">Description</label>
               </div>
@@ -56,10 +89,13 @@ const CreateResModal = () => {
                   name="contactNumber"
                   type="number"
                   required
+                  value={contactNumber}
+                  onChange={onChange}
                 />
                 <label htmlFor="contactNumber">Contact Number</label>
               </div>
             </div>
+            <button id="resBtn" type="submit"></button>
           </form>
         </div>
       </div>
@@ -70,8 +106,9 @@ const CreateResModal = () => {
         <a
           href="#dish"
           className="right btn modal-close waves-effect modal-trigger"
+          onClick={() => document.querySelector("#resBtn").click()}
         >
-          Add Dish <i className="material-icons right">done</i>
+          Add Dish
         </a>
       </div>
     </div>
