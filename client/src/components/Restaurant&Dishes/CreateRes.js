@@ -29,9 +29,9 @@ const CreateResModal = ({ addResData }) => {
     setRes({ ...res, [e.target.name]: e.target.value });
   };
 
-  const onClick = e => {
-    e.preventDefault();
+  const onResModal = e => {
     addResData({ res });
+    console.log("from res");
     setRes({
       name: "",
       cuisine: "Multi-Cuisine",
@@ -129,7 +129,7 @@ const CreateResModal = ({ addResData }) => {
         <a
           href="#dish"
           className="disabled right btn modal-close waves-effect modal-trigger"
-          onClick={onClick}
+          onClick={onResModal}
         >
           Add Dish
         </a>

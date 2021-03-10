@@ -7,4 +7,6 @@ export const SET_ALERT = "AUTH_FAIL";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const CREATE_RES = "CREATE_RES";
+export const GET_MY_RES = "GET_MY_RES";
+export const CLEAR_RES = "CLEAR_RES";
 export const ERROR = "ERROR";

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import DishItem from "./DishItem";
 import ResContext from "../../context/restaurant/resContext";
 
-const Dishes = ({ addResData }) => {
+const Dishes = ({ addResData, submitResData }) => {
   const [dishes, setDishes] = useState([
     {
       name: "",
@@ -44,9 +44,10 @@ const Dishes = ({ addResData }) => {
     ]);
   };
 
-  const onClick = e => {
-    e.preventDefault();
+  const onDishesModal = e => {
+    console.log("dishes", dishes);
     addResData({ dishes });
+    console.log("from dishes");
     setDishes([
       {
         name: "",
@@ -83,7 +84,7 @@ const Dishes = ({ addResData }) => {
           href="#done"
           id="dish-close"
           className="right btn modal-close waves-effect"
-          onClick={onClick}
+          onClick={onDishesModal}
         >
           Ok <i className="material-icons right">done</i>
         </a>
