@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 
 const RestaurantItem = ({ restaurant }) => {
@@ -29,7 +31,7 @@ const RestaurantItem = ({ restaurant }) => {
         </div>
       </div>
       <div className="card-action">
-        <Link className="amber-accent-3-text" to={`res/${_id}`}>
+        <Link className="amber-accent-3-text" to={`/res/${_id}`}>
           View Dishes
         </Link>
       </div>
@@ -44,6 +46,10 @@ const RestaurantItem = ({ restaurant }) => {
       </div>
     </div>
   );
+};
+
+RestaurantItem.propTypes = {
+  restaurant: PropTypes.func.isRequired
 };
 
 export default RestaurantItem;

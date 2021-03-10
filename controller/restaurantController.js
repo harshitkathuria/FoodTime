@@ -40,7 +40,9 @@ exports.getAllRestaurants = async (req, res) => {
 // Get Restaurant
 exports.getRestaurant = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findById(req.params.id);
+    const restaurant = await Restaurant.findById(req.params.id).populate(
+      "dishes"
+    );
     res.status(200).json({ status: "success", data: { restaurant } });
   } catch (err) {
     console.log(err.message);

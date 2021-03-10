@@ -12,6 +12,9 @@ router.get(
   authController.roles(["admin", "restaurant"]),
   restaurantController.getMyRes
 );
+
+router.get("/:id", restaurantController.getRestaurant);
+
 router.post(
   "/",
   authController.roles(["admin", "restaurant"]),

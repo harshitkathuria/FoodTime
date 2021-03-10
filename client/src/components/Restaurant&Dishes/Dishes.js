@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
+import PropTypes from "prop-types";
 import DishItem from "./DishItem";
-import ResContext from "../../context/restaurant/resContext";
 
-const Dishes = ({ addResData, submitResData }) => {
+const Dishes = ({ addResData }) => {
   const [dishes, setDishes] = useState([
     {
       name: "",
@@ -27,7 +27,7 @@ const Dishes = ({ addResData, submitResData }) => {
   useEffect(() => {
     dishes.forEach(dish => {
       const { name, price, type, description } = dish;
-      if (name != "" && type !== "" && price !== "" && description !== "") {
+      if (name !== "" && type !== "" && price !== "" && description !== "") {
         document.querySelector("a[href='#done']").classList.remove("disabled");
       } else {
         document.querySelector("a[href='#done']").classList.add("disabled");
@@ -91,6 +91,10 @@ const Dishes = ({ addResData, submitResData }) => {
       </div>
     </div>
   );
+};
+
+Dishes.propTypes = {
+  addResData: PropTypes.func.isRequired
 };
 
 export default Dishes;
