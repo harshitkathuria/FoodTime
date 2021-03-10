@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const CreateResModal = () => {
+const CreateResModal = ({ addResData }) => {
   const [res, setRes] = useState({
     name: "",
     cuisine: "Multi-Cuisine",
@@ -11,18 +11,42 @@ const CreateResModal = () => {
 
   const { name, cuisine, address, description, contactNumber } = res;
 
+  useEffect(() => {
+    if (
+      name != "" &&
+      cuisine !== "" &&
+      address !== "" &&
+      description !== "" &&
+      contactNumber !== ""
+    ) {
+      document.querySelector("a[href='#dish']").classList.remove("disabled");
+    } else {
+      document.querySelector("a[href='#dish']").classList.add("disabled");
+    }
+  });
+
   const onChange = e => {
-    setRes({ [e.target.name]: e.target.value });
+    setRes({ ...res, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {};
+  const onClick = e => {
+    e.preventDefault();
+    addResData({ res });
+    setRes({
+      name: "",
+      cuisine: "Multi-Cuisine",
+      address: "",
+      description: "",
+      contactNumber: ""
+    });
+  };
 
   return (
     <div id="restaurant" className="restaurant-modal modal modal-fixed-footer">
       <div className="modal-content">
         <h4 className="center heading">Add Restaurant</h4>
         <div className="row">
-          <form onSubmit={onSubmit} className="form col s12">
+          <form className="form col s12">
             <div className="row">
               <div className="input-field col s9 offset-s1">
                 <i className="material-icons prefix">badge</i>
@@ -71,7 +95,7 @@ const CreateResModal = () => {
               <div className="input-field col s9 offset-s1">
                 <i className="material-icons prefix">description</i>
                 <textarea
-                  name="decription"
+                  name="description"
                   id="description"
                   className="materialize-textarea"
                   value={description}
@@ -95,7 +119,6 @@ const CreateResModal = () => {
                 <label htmlFor="contactNumber">Contact Number</label>
               </div>
             </div>
-            <button id="resBtn" type="submit"></button>
           </form>
         </div>
       </div>
@@ -105,8 +128,8 @@ const CreateResModal = () => {
         </a>
         <a
           href="#dish"
-          className="right btn modal-close waves-effect modal-trigger"
-          onClick={() => document.querySelector("#resBtn").click()}
+          className="disabled right btn modal-close waves-effect modal-trigger"
+          onClick={onClick}
         >
           Add Dish
         </a>

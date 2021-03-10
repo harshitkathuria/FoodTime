@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Dishes from "./Restaurant&Dishes/Dishes";
 import CreateRes from "./Restaurant&Dishes/CreateRes";
 
@@ -12,6 +12,12 @@ const AuthHome = () => {
       dismissible: false
     });
   }, []);
+
+  const [resData, setResData] = useState({});
+
+  const addResData = data => {
+    setResData({ ...resData, ...data });
+  };
 
   const onHover = () => {
     document.querySelector('label[for="add"]').style.opacity = "1";
@@ -35,8 +41,8 @@ const AuthHome = () => {
           <i className="large material-icons">add</i>
         </a>
       </div>
-      <CreateRes />
-      <Dishes />
+      <CreateRes addResData={addResData} />
+      <Dishes addResData={addResData} />
     </div>
   );
 };

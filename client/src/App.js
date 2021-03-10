@@ -9,6 +9,7 @@ import AuthHome from "./components/AuthHome";
 import "./App.css";
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
+import ResState from "./context/restaurant/ResState";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import setAuthToken from "./components/utils/setAuthToken";
 
@@ -21,18 +22,20 @@ function App() {
     <div className="App">
       <AlertState>
         <AuthState>
-          <Router>
-            <Navbar />
-            <div className="main">
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <PrivateRoute exact path="/home" component={AuthHome} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
-              </Switch>
-            </div>
-            <Footer />
-          </Router>
+          <ResState>
+            <Router>
+              <Navbar />
+              <div className="main">
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <PrivateRoute exact path="/home" component={AuthHome} />
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/login" component={Login} />
+                </Switch>
+              </div>
+              <Footer />
+            </Router>
+          </ResState>
         </AuthState>
       </AlertState>
     </div>

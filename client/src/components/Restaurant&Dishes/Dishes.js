@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import DishItem from "./DishItem";
+import ResContext from "../../context/restaurant/resContext";
 
-const Dishes = () => {
+const Dishes = ({ addResData }) => {
   const [dishes, setDishes] = useState([
     {
       name: "",
@@ -23,12 +24,36 @@ const Dishes = () => {
     ]);
   };
 
+  useEffect(() => {
+    dishes.forEach(dish => {
+      const { name, price, type, description } = dish;
+      if (name != "" && type !== "" && price !== "" && description !== "") {
+        document.querySelector("a[href='#done']").classList.remove("disabled");
+      } else {
+        document.querySelector("a[href='#done']").classList.add("disabled");
+      }
+    });
+  });
+
   const onEdit = (e, index) => {
     const _dishes = [...dishes];
     setDishes([
       ..._dishes.slice(0, index),
       { ..._dishes[index], [e.target.name]: e.target.value },
       ..._dishes.slice(index + 1)
+    ]);
+  };
+
+  const onClick = e => {
+    e.preventDefault();
+    addResData({ dishes });
+    setDishes([
+      {
+        name: "",
+        price: "",
+        type: "",
+        description: ""
+      }
     ]);
   };
 
@@ -54,7 +79,12 @@ const Dishes = () => {
         <a href="#!" className="left btn red modal-close waves-effect">
           Cancel <i className="material-icons right">clear</i>
         </a>
-        <a href="#dish" className="right btn modal-close waves-effect">
+        <a
+          href="#done"
+          id="dish-close"
+          className="right btn modal-close waves-effect"
+          onClick={onClick}
+        >
           Ok <i className="material-icons right">done</i>
         </a>
       </div>
