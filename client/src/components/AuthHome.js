@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Dishes from "./Restaurant&Dishes/Dishes";
 import CreateRes from "./Restaurant&Dishes/CreateRes";
 
 import ResContext from "../context/restaurant/resContext";
+import AuthContext from "../context/auth/authContext";
 import Restaurants from "./Restaurant&Dishes/Restaurants";
-import DishCards from "./Restaurant&Dishes/DishCards";
 
 const AuthHome = () => {
   useEffect(() => {
@@ -16,7 +16,9 @@ const AuthHome = () => {
       outDuration: 400,
       dismissible: false
     });
-    getMyRes();
+    if (user && user.role === "restaurant") {
+      getMyRes();
+    }
   }, []);
 
   useEffect(() => {
@@ -26,6 +28,8 @@ const AuthHome = () => {
   });
 
   const resContext = useContext(ResContext);
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   const { createRes, getMyRes } = resContext;
 
   const [resData, setResData] = useState({});
@@ -52,36 +56,44 @@ const AuthHome = () => {
     document.querySelector('label[for="add"]').style.opacity = "0";
   };
 
-  return (
-    <div style={{ margin: "0 1rem" }}>
-      <Switch>
-        <Route
-          exact
-          path="/home"
-          render={() => (
-            <>
-              <Restaurants />
-              <div className="fixed-action-btn">
-                <label htmlFor="add">Add Restaurant</label>
-                <a
-                  id="add"
-                  onMouseOver={onHover}
-                  onMouseLeave={onMouseLeave}
-                  className="btn btn-floating btn-large amber darken-4 modal-trigger"
-                  href="#restaurant"
-                >
-                  <i className="large material-icons">add</i>
-                </a>
-              </div>
-              <CreateRes addResData={addResData} />
-              <Dishes add ResData={addResData} submitResData={submitResData} />
-            </>
-          )}
-        />
-        <Route exact path="/res/:id" component={DishCards} />
-      </Switch>
-    </div>
+  const forRestaurant = (
+    <>
+      <Restaurants />
+      <div className="fixed-action-btn">
+        <label htmlFor="add">Add Restaurant</label>
+        <a
+          id="add"
+          onMouseOver={onHover}
+          onMouseLeave={onMouseLeave}
+          className="btn btn-floating btn-large amber darken-4 modal-trigger"
+          href="#restaurant"
+        >
+          <i className="large material-icons">add</i>
+        </a>
+      </div>
+      <CreateRes addResData={addResData} />
+      <Dishes addResData={addResData} submitResData={submitResData} />
+    </>
   );
+
+  const forUser = (
+    <>
+      <div className="fixed-action-btn">
+        <label htmlFor="add">Place Order</label>
+        <Link
+          id="add"
+          onMouseOver={onHover}
+          onMouseLeave={onMouseLeave}
+          className="btn btn-floating btn-large amber darken-4"
+          to="/res/all"
+        >
+          <i className="large material-icons">add_shopping_cart</i>
+        </Link>
+      </div>
+    </>
+  );
+
+  return <div>{user && user.role === "user" ? forUser : forRestaurant}</div>;
 };
 
 export default AuthHome;

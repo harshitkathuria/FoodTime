@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
+import ResContext from "../../context/restaurant/resContext";
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
+  const resContext = useContext(ResContext);
 
   useEffect(() => {
     authContext.loadUser();
@@ -11,6 +13,7 @@ const Navbar = () => {
 
   const onLogout = () => {
     authContext.logout();
+    resContext.clearRes();
   };
 
   const guestLinks = (
@@ -27,13 +30,10 @@ const Navbar = () => {
   const userLinks = (
     <>
       <li>
-        <Link to="/">Add your restaurants</Link>
+        <Link to="/res/all">Restaurants</Link>
       </li>
       <li>
-        <Link to="/">Restaurants</Link>
-      </li>
-      <li>
-        <Link to="/">
+        <Link to="/home">
           My{" "}
           {authContext.user && authContext.user.role === "user"
             ? "Orders"
@@ -41,7 +41,7 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <a to="/" onClick={onLogout}>
+        <a href="/" onClick={onLogout}>
           Logout
         </a>
       </li>
@@ -52,9 +52,9 @@ const Navbar = () => {
     <nav className="teal darken-3">
       <div className="nav-wrapper">
         <div className="container">
-          <a href="/" className="brand-logo">
+          <Link to="/" className="brand-logo">
             FoodTime
-          </a>
+          </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {authContext.isAuthenticated ? userLinks : guestLinks}
           </ul>
