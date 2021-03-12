@@ -1,7 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-const UserDishItem = ({ dish }) => {
+const UserDishItem = ({ index, dish, onEdit }) => {
+  const onChange = e => {
+    onEdit(e, index);
+  };
+
   const { name, price, type, description } = dish;
   return (
     <div className="card cyan darken-4">
@@ -29,6 +33,7 @@ const UserDishItem = ({ dish }) => {
             id="quantity"
             type="number"
             defaultValue="0"
+            onChange={onChange}
           />
           <label htmlFor="quantity" className="white-text active">
             Enter Quantity
