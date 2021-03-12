@@ -1,24 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Dishes from "./Restaurant&Dishes/Dishes";
 import CreateRes from "./Restaurant&Dishes/CreateRes";
 
 import ResContext from "../context/restaurant/resContext";
 import AuthContext from "../context/auth/authContext";
 import Restaurants from "./Restaurant&Dishes/Restaurants";
+import Orders from "./Orders/Orders";
 
 const AuthHome = () => {
+  const resContext = useContext(ResContext);
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+  const { createRes, getMyRes } = resContext;
+
   useEffect(() => {
     const M = window.M;
     M.Modal.init(document.querySelectorAll(".modal"), {
       opacity: 0.8,
       inDuration: 450,
-      outDuration: 400,
-      dismissible: false
+      outDuration: 400
+      // dismissible: false
     });
-    if (user && user.role === "restaurant") {
-      getMyRes();
-    }
+    getMyRes();
   }, []);
 
   useEffect(() => {
@@ -27,11 +31,6 @@ const AuthHome = () => {
     }
   });
 
-  const resContext = useContext(ResContext);
-  const authContext = useContext(AuthContext);
-  const { user } = authContext;
-  const { createRes, getMyRes } = resContext;
-
   const [resData, setResData] = useState({});
 
   const addResData = data => {
@@ -39,11 +38,9 @@ const AuthHome = () => {
   };
 
   const submitResData = () => {
-    console.log("before", resData);
     const data = Object.assign(resData.res, {
       dishes: resData.dishes
     });
-    console.log("after", data);
     createRes(data);
     setResData({});
   };
@@ -72,12 +69,13 @@ const AuthHome = () => {
         </a>
       </div>
       <CreateRes addResData={addResData} />
-      <Dishes addResData={addResData} submitResData={submitResData} />
+      <Dishes addResData={addResData} />
     </>
   );
 
   const forUser = (
     <>
+      <Orders />
       <div className="fixed-action-btn">
         <label htmlFor="add">Place Order</label>
         <Link
