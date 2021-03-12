@@ -4,6 +4,23 @@
   flex-direction: column;
 }
 
+.spinner {
+  width: 10rem;
+  display: block;
+  margin: 15rem auto;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .heading {
   font-size: 2.4rem;
   margin-bottom: 1rem;
