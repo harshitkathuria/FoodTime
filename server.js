@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 const restaurantRoute = require("./routes/restaurantRoute");
+const orderRoute = require("./routes/orderRoute");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/res", restaurantRoute);
+app.use("/api/order", orderRoute);
 
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB = process.env.DB.replace("<PASSWORD>", DB_PASSWORD);
