@@ -1,6 +1,8 @@
 import {
   CREATE_RES,
+  SUBMIT_ORDER,
   ERROR,
+  GET_MY_ORDERS,
   GET_MY_RES,
   CLEAR_RES,
   GET_MY_DISHES,
@@ -10,30 +12,43 @@ import {
 
 export default (state, action) => {
   switch (action.type) {
+    case CREATE_RES:
+      return {
+        ...state,
+        restaurants: [...state.restaurants, action.payload.restaurant],
+        orders: null
+      };
+    case SUBMIT_ORDER:
+      return state;
     case GET_ALL_RES:
       return {
         ...state,
         restaurants: action.payload.restaurants,
         loading: false,
-        dishes: null
-      };
-    case CREATE_RES:
-      return {
-        ...state,
-        restaurants: [...state.restaurants, action.payload.restaurant]
+        dishes: null,
+        orders: null
       };
     case GET_MY_RES:
       return {
         ...state,
         restaurants: action.payload.restaurant,
         loading: false,
-        error: null
+        error: null,
+        orders: null
       };
     case GET_MY_DISHES:
       return {
         ...state,
         restaurant: action.payload.restaurant,
         dishes: action.payload.restaurant.dishes,
+        loading: false,
+        error: null,
+        orders: null
+      };
+    case GET_MY_ORDERS:
+      return {
+        ...state,
+        orders: action.payload.orders,
         loading: false,
         error: null
       };
@@ -43,7 +58,8 @@ export default (state, action) => {
         restaurants: null,
         dishes: null,
         restaurant: null,
-        error: null
+        error: null,
+        orders: null
       };
     case ERROR:
       return {

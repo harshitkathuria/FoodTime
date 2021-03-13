@@ -6,11 +6,13 @@ import ResReducer from "./resReducer";
 import {
   CLEAR_RES,
   CREATE_RES,
+  SUBMIT_ORDER,
   ERROR,
   GET_ALL_RES,
   GET_MY_DISHES,
   GET_MY_RES,
-  SET_LOADING
+  SET_LOADING,
+  GET_MY_ORDERS
 } from "../types";
 
 const ResState = props => {
@@ -18,6 +20,7 @@ const ResState = props => {
     restaurants: null,
     restaurant: null,
     dishes: null,
+    orders: null,
     loading: false,
     error: null
   };
@@ -58,6 +61,46 @@ const ResState = props => {
       const res = await axios.post("/api/res", resData, config);
       dispatch({
         type: CREATE_RES,
+        payload: res.data.data
+      });
+    } catch (err) {
+      console.log(err.response.data.msg);
+      dispatch({
+        type: ERROR,
+        payload: err.response.data.msg
+      });
+    }
+  };
+
+  // Submit Order
+  const submitOrder = async orderData => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      const res = await axios.post("/api/order", orderData, config);
+      dispatch({
+        type: SUBMIT_ORDER,
+        payload: res.data.data
+      });
+    } catch (err) {
+      console.log(err.response.data.msg);
+      dispatch({
+        type: ERROR,
+        payload: err.response.data.msg
+      });
+    }
+  };
+
+  // Get all orders of the user
+  const getMyOrders = async () => {
+    setLoading();
+    try {
+      const res = await axios.get("/api/order/my");
+      dispatch({
+        type: GET_MY_ORDERS,
         payload: res.data.data
       });
     } catch (err) {
@@ -117,9 +160,12 @@ const ResState = props => {
         restaurant: state.restaurant,
         loading: state.loading,
         error: state.error,
+        orders: state.orders,
         dishes: state.dishes,
         getAllRes,
         createRes,
+        submitOrder,
+        getMyOrders,
         getMyRes,
         clearRes,
         getDishes,
