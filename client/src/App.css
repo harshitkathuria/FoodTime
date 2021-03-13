@@ -21,6 +21,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+#order-item .card-content {
+  padding-bottom: 10px;
+}
+
 .heading {
   font-size: 2.4rem;
   margin-bottom: 1rem;
