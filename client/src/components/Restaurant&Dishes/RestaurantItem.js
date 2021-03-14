@@ -49,7 +49,7 @@ const RestaurantItem = ({ restaurant }) => {
 };
 
 RestaurantItem.propTypes = {
-  restaurant: PropTypes.func.isRequired
+  restaurant: PropTypes.object.isRequired
 };
 
 export default RestaurantItem;

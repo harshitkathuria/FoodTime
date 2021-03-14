@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const DishCardItem = ({ dish }) => {
   const { name, price, type } = dish;
@@ -17,6 +17,10 @@ const DishCardItem = ({ dish }) => {
       </div>
     </div>
   );
+};
+
+DishCardItem.propTypes = {
+  dish: PropTypes.object.isRequired
 };
 
 export default DishCardItem;

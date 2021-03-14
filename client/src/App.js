@@ -15,7 +15,7 @@ import PrivateRoute from "./components/utils/PrivateRoute";
 import setAuthToken from "./components/utils/setAuthToken";
 import AllRestaurants from "./components/Restaurant&Dishes/AllRestaurants";
 
-if (localStorage.token) {
+if (localStorage.getItem("token")) {
   setAuthToken(localStorage.token);
 }
 
