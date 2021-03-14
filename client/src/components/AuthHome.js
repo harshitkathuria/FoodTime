@@ -8,10 +8,10 @@ import AuthContext from "../context/auth/authContext";
 import Restaurants from "./Restaurant&Dishes/Restaurants";
 import Orders from "./Orders/Orders";
 
-const AuthHome = () => {
+const AuthHome = props => {
   const resContext = useContext(ResContext);
   const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const { user, loadUser, isAuthenticated } = authContext;
   const { createRes, getMyRes } = resContext;
 
   useEffect(() => {
@@ -22,10 +22,15 @@ const AuthHome = () => {
       outDuration: 400
       // dismissible: false
     });
+    loadUser();
     getMyRes();
   }, []);
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      props.history.push("/login");
+    }
+
     if (resData.dishes) {
       submitResData();
     }

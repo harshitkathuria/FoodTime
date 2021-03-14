@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AuthContext from "../../context/auth/authContext";
 import ResContext from "../../context/restaurant/resContext";
 
@@ -56,7 +56,11 @@ const Navbar = () => {
             FoodTime
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            {authContext.isAuthenticated ? userLinks : guestLinks}
+            {useLocation().pathname !== "/"
+              ? authContext.isAuthenticated
+                ? userLinks
+                : guestLinks
+              : ""}
           </ul>
         </div>
       </div>
