@@ -31,6 +31,8 @@ const Register = props => {
       setAlert(error, "danger");
       clearErrors();
     }
+    const M = window.M;
+    M.FormSelect.init(document.querySelector("select"));
   }, [error, isAuthenticated, props.history]);
 
   const onChange = e => {
