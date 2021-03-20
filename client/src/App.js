@@ -14,6 +14,7 @@ import ResState from "./context/restaurant/ResState";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import setAuthToken from "./components/utils/setAuthToken";
 import AllRestaurants from "./components/Restaurant&Dishes/AllRestaurants";
+import NotFound from "./components/NotFound";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.token);
@@ -39,6 +40,7 @@ function App() {
                   <PrivateRoute exact path="/res/:id" component={DishCards} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
+                  <Route path="*" component={NotFound} />
                 </Switch>
               </div>
               <Footer />
