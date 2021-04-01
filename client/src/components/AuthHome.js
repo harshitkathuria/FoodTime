@@ -27,7 +27,7 @@ const AuthHome = props => {
   }, []);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated === false) {
       props.history.push("/login");
     }
 

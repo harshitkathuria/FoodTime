@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -15,38 +16,46 @@ import PrivateRoute from "./components/utils/PrivateRoute";
 import setAuthToken from "./components/utils/setAuthToken";
 import AllRestaurants from "./components/Restaurant&Dishes/AllRestaurants";
 import NotFound from "./components/NotFound";
+import AuthContext from "./context/auth/authContext";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.token);
 }
 
 function App() {
+  const { isAuthenticated } = useContext(AuthContext);
   return (
     <div className="App">
       <AlertState>
-        <AuthState>
-          <ResState>
-            <Router>
-              <Navbar />
-              <div className="main" style={{ margin: "0 1rem" }}>
-                <Switch>
+        <ResState>
+          <Router>
+            <Navbar />
+            <div className="main" style={{ margin: "0 1rem" }}>
+              <Switch>
+                {isAuthenticated !== null && (
                   <Route exact path="/" component={Home} />
-                  <PrivateRoute exact path="/home" component={AuthHome} />
-                  <PrivateRoute
-                    exact
-                    path="/res/all"
-                    component={AllRestaurants}
-                  />
-                  <PrivateRoute exact path="/res/:id" component={DishCards} />
+                )}
+                {isAuthenticated !== null && (
                   <Route exact path="/register" component={Register} />
+                )}
+                {isAuthenticated !== null && (
                   <Route exact path="/login" component={Login} />
+                )}
+                <PrivateRoute exact path="/home" component={AuthHome} />
+                <PrivateRoute
+                  exact
+                  path="/res/all"
+                  component={AllRestaurants}
+                />
+                <PrivateRoute exact path="/res/:id" component={DishCards} />
+                {isAuthenticated !== null && (
                   <Route path="*" component={NotFound} />
-                </Switch>
-              </div>
-              <Footer />
-            </Router>
-          </ResState>
-        </AuthState>
+                )}
+              </Switch>
+            </div>
+            <Footer />
+          </Router>
+        </ResState>
       </AlertState>
     </div>
   );

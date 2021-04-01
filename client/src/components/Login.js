@@ -18,7 +18,7 @@ const Login = props => {
   const { email, password } = user;
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated === true) {
       props.history.push("/home");
     }
 

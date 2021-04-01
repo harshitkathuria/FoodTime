@@ -23,7 +23,7 @@ const Register = props => {
   const { name, email, password, confirmPassword, role } = user;
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated === true) {
       props.history.push("/home");
     }
 
