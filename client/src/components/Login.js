@@ -46,7 +46,7 @@ const Login = props => {
             <h4 style={{ fontWeight: 500 }}>Login to your account</h4>
           </div>
           <div className="row">
-            <form className="col s6 offset-s3" onSubmit={onSubmit}>
+            <form className="col s12 m6 offset-m3" onSubmit={onSubmit}>
               <div className="input-field">
                 <input
                   type="email"
@@ -68,7 +68,7 @@ const Login = props => {
                 <label htmlFor="password">Password</label>
               </div>
               <button
-                className="btn waves-effect teal darken-3"
+                className="btn waves-effect teal darken-3 submitBtn"
                 type="submit"
                 value="Login"
               >
@@ -76,7 +76,7 @@ const Login = props => {
               </button>
             </form>
             <div className="row">
-              <div className="col s6 offset-s3">
+              <div className="col s12 m6 offset-m3">
                 <p className="small">
                   Don't have an account? <Link to="/register">Register</Link>
                 </p>

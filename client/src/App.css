@@ -149,3 +149,13 @@ label[for="add"] {
 footer {
   padding: 0.75rem;
 }
+
+/* Responsiveness */
+@media (max-width: 468px) {
+  .card .card-content p {
+    margin-top: 5px;
+  }
+  .submitBtn {
+    width: 100%;
+  }
+}

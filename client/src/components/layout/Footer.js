@@ -9,7 +9,10 @@ const Footer = () => {
         </div>
         <div className="right">
           <h6>
-            Made by <span className="blue-text">Harshit Kathuria</span>
+            Made by{" "}
+            <a href="https://github.com/harshitkathuria" target="_blank">
+              <span className="blue-text">Harshit Kathuria</span>
+            </a>
           </h6>
         </div>
       </div>

@@ -65,7 +65,7 @@ const Register = props => {
             <h4 style={{ fontWeight: 500 }}>Register Your Account</h4>
           </div>
           <div className="row">
-            <form className="col s6 offset-s3" onSubmit={onSubmit}>
+            <form className="col s12 m6 offset-m3" onSubmit={onSubmit}>
               <div className="input-field">
                 <input
                   type="text"
@@ -119,7 +119,7 @@ const Register = props => {
                 <label>Apply as</label>
               </div>
               <button
-                className="btn waves-effect teal darken-3"
+                className="btn waves-effect teal darken-3 submitBtn"
                 type="submit"
                 value="Register"
               >
@@ -127,7 +127,7 @@ const Register = props => {
               </button>
             </form>
             <div className="row">
-              <div className="col s6 offset-s3">
+              <div className="col s12 m6 offset-m3">
                 <p className="small">
                   Already have an account? <Link to="/login">Login</Link>
                 </p>
