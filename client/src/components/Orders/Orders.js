@@ -8,8 +8,12 @@ const Orders = () => {
   const resContext = useContext(ResContext);
   const { orders, loading } = resContext;
 
+  const getMyOrders = async () => {
+    await resContext.getMyOrders();
+  };
+
   useEffect(() => {
-    resContext.getMyOrders();
+    getMyOrders();
   }, []);
 
   if (loading) {

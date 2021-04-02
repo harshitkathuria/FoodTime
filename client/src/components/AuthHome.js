@@ -52,10 +52,12 @@ const AuthHome = props => {
 
   const onHover = () => {
     document.querySelector('label[for="add"]').style.opacity = "1";
+    document.querySelector('label[for="add"]').style.display = "inline-block";
   };
 
   const onMouseLeave = () => {
     document.querySelector('label[for="add"]').style.opacity = "0";
+    document.querySelector('label[for="add"]').style.display = "none";
   };
 
   const forRestaurant = (

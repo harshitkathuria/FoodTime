@@ -43,6 +43,7 @@ input[type="number"] {
 }
 
 label[for="add"] {
+  display: none;
   opacity: 0;
   padding: 0.2rem;
   margin-right: 0.4rem;
@@ -167,5 +168,11 @@ footer {
   #order-item .card-content {
     padding-bottom: 10px;
     min-height: 145px !important;
+  }
+  #order-item .card-reveal .card-title {
+    font-size: 17px;
+  }
+  #order-item .card-reveal .secondary-content {
+    float: none;
   }
 }
