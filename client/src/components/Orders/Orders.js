@@ -18,7 +18,7 @@ const Orders = () => {
     return <h4>Please place order/(s)</h4>;
   } else {
     return (
-      <div style={OrderStyle}>
+      <div className="section-grid-2" style={OrderStyle}>
         {orders &&
           orders.length > 0 &&
           orders.map(order => <OrderItem key={order._id} order={order} />)}

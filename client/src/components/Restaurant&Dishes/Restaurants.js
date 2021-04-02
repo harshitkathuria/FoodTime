@@ -14,7 +14,7 @@ const Restaurants = () => {
     return <h4>Please add restaurant/(s)</h4>;
   } else {
     return (
-      <div style={RestaurantStyle}>
+      <div className="section-grid-2" style={RestaurantStyle}>
         {restaurants &&
           restaurants.length > 0 &&
           restaurants.map(restaurant => (

@@ -9,7 +9,7 @@ const DishItem = ({ index, dish, onEdit }) => {
 
   return (
     <div className="row">
-      <div className="input-field col s3">
+      <div className="input-field col s12 m3">
         <input
           name="name"
           id="name"
@@ -19,7 +19,7 @@ const DishItem = ({ index, dish, onEdit }) => {
         />
         <label htmlFor="name">Name</label>
       </div>
-      <div className="input-field col s3">
+      <div className="input-field col s12 m3">
         <input
           name="price"
           id="price"
@@ -29,7 +29,7 @@ const DishItem = ({ index, dish, onEdit }) => {
         />
         <label htmlFor="price">Price (INR)</label>
       </div>
-      <div className="input-field col s3">
+      <div className="input-field col s12 m3">
         <input
           name="type"
           id="type"
@@ -39,7 +39,7 @@ const DishItem = ({ index, dish, onEdit }) => {
         />
         <label htmlFor="type">Type</label>
       </div>
-      <div className="input-field col s3">
+      <div className="input-field col s12 m3">
         <textarea
           name="description"
           id="description"

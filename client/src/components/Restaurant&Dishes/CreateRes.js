@@ -42,13 +42,13 @@ const CreateResModal = ({ addResData }) => {
   };
 
   return (
-    <div id="restaurant" className="restaurant-modal modal modal-fixed-footer">
+    <div id="restaurant" className="modal modal-fixed-footer">
       <div className="modal-content">
         <h4 className="center heading">Add Restaurant</h4>
         <div className="row">
           <form className="form col s12">
             <div className="row">
-              <div className="input-field col s9 offset-s1">
+              <div className="input-field col s12 m9 offset-m1">
                 <i className="material-icons prefix">badge</i>
                 <input
                   id="name"
@@ -62,7 +62,7 @@ const CreateResModal = ({ addResData }) => {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s9 offset-s1">
+              <div className="input-field col s12 m9 offset-m1">
                 <i className="material-icons prefix">dinner_dining</i>
                 <input
                   id="cuisine"
@@ -78,7 +78,7 @@ const CreateResModal = ({ addResData }) => {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s9 offset-s1">
+              <div className="input-field col s12 m9 offset-m1">
                 <i className="material-icons prefix">home</i>
                 <input
                   id="address"
@@ -92,7 +92,7 @@ const CreateResModal = ({ addResData }) => {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s9 offset-s1">
+              <div className="input-field col s12 m9 offset-m1">
                 <i className="material-icons prefix">description</i>
                 <textarea
                   name="description"
@@ -106,7 +106,7 @@ const CreateResModal = ({ addResData }) => {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s9 offset-s1">
+              <div className="input-field cols12 m9 offset-m1">
                 <i className="material-icons prefix">phone</i>
                 <input
                   id="contactNumber"

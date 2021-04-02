@@ -17,7 +17,7 @@ const SideNav = () => {
   };
 
   return (
-    <ul id="slide-out" class="sidenav">
+    <ul id="slide-out" class="sidenav sidenav-close">
       <li>
         <Link to="/res/all">All Restaurants</Link>
       </li>

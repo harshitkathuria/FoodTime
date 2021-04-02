@@ -74,7 +74,7 @@ const DishCards = ({ match }) => {
   if (!loading && dishes) {
     return (
       <div>
-        <div style={DishStyle}>
+        <div className="section-grid-1" style={DishStyle}>
           {user && user.role === "user"
             ? dishes.map((dish, index) => (
                 <UserDishItem
