@@ -9,7 +9,6 @@ import AuthHome from "./components/AuthHome";
 import DishCards from "./components/Restaurant&Dishes/DishCards";
 
 import "./App.css";
-import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
 import ResState from "./context/restaurant/ResState";
 import PrivateRoute from "./components/utils/PrivateRoute";
@@ -17,6 +16,7 @@ import setAuthToken from "./components/utils/setAuthToken";
 import AllRestaurants from "./components/Restaurant&Dishes/AllRestaurants";
 import NotFound from "./components/NotFound";
 import AuthContext from "./context/auth/authContext";
+import SideNav from "./components/layout/SideNav";
 
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.token);
@@ -30,6 +30,7 @@ function App() {
         <ResState>
           <Router>
             <Navbar />
+            <SideNav />
             <div className="main" style={{ margin: "0 1rem" }}>
               <Switch>
                 {isAuthenticated !== null && (
