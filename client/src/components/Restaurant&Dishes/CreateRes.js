@@ -106,7 +106,7 @@ const CreateResModal = ({ addResData }) => {
               </div>
             </div>
             <div className="row">
-              <div className="input-field cols12 m9 offset-m1">
+              <div className="input-field col s12 m9 offset-m1">
                 <i className="material-icons prefix">phone</i>
                 <input
                   id="contactNumber"
