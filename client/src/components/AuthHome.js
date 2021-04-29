@@ -12,7 +12,7 @@ const AuthHome = props => {
   const resContext = useContext(ResContext);
   const authContext = useContext(AuthContext);
   const { user, loadUser, isAuthenticated } = authContext;
-  const { createRes, getMyRes } = resContext;
+  const { createRes, getMyRes, clearRestaurant } = resContext;
 
   useEffect(() => {
     const M = window.M;
@@ -60,6 +60,10 @@ const AuthHome = props => {
     document.querySelector('label[for="add"]').style.display = "none";
   };
 
+  const onClear = () => {
+    clearRestaurant();
+  };
+
   const forRestaurant = (
     <>
       <Restaurants />
@@ -71,6 +75,7 @@ const AuthHome = props => {
           onMouseLeave={onMouseLeave}
           className="btn btn-floating btn-large amber darken-4 modal-trigger"
           href="#restaurant"
+          onClick={onClear}
         >
           <i className="large material-icons">add</i>
         </a>

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-
 import { Link } from "react-router-dom";
+import ResContext from "../../context/restaurant/resContext";
 
 const RestaurantItem = ({ restaurant }) => {
   const {
@@ -12,8 +12,16 @@ const RestaurantItem = ({ restaurant }) => {
     description,
     cuisine
   } = restaurant;
+
+  const resContext = useContext(ResContext);
+  const { setRestaurant } = resContext;
+
+  const onEdit = () => {
+    setRestaurant(restaurant);
+  };
+
   return (
-    <div className="card cyan darken-4">
+    <div id="my-restaurant" className="card cyan darken-4">
       <div className="card-content white-text">
         <div className="flow-text center">{name}</div>
         <blockquote>
@@ -31,9 +39,21 @@ const RestaurantItem = ({ restaurant }) => {
         </div>
       </div>
       <div className="card-action">
-        <Link className="amber-accent-3-text" to={`/res/${_id}`}>
-          View Dishes
-        </Link>
+        <div className="card-links" style={{ justifyContent: "space-between" }}>
+          <Link className="amber-accent-3-text" to={`/res/${_id}`}>
+            View Dishes
+          </Link>
+          <a
+            id="add"
+            className="btn-flat modal-trigger"
+            href="#restaurant"
+            style={{ background: "#00565a" }}
+            onClick={onEdit}
+          >
+            Edit
+            <i className="large material-icons right">mode_edit</i>
+          </a>
+        </div>
       </div>
       <div className="card-reveal grey lighten-4">
         <span className="card-title" style={{ fontWeight: 500 }}>

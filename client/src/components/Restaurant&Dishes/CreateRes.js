@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import ResContext from "../../context/restaurant/resContext";
 
 const CreateResModal = ({ addResData }) => {
+  const resContext = useContext(ResContext);
+  const { restaurant, clearRestaurant, updateRestaurant } = resContext;
+
   const [res, setRes] = useState({
     name: "",
     cuisine: "Multi-Cuisine",
@@ -23,10 +27,33 @@ const CreateResModal = ({ addResData }) => {
     } else {
       document.querySelector("a[href='#dish']").classList.add("disabled");
     }
+    window.M.updateTextFields();
   });
+
+  useEffect(() => {
+    if (restaurant !== null) {
+      setRes(restaurant);
+    } else {
+      setRes({
+        name: "",
+        cuisine: "Multi-Cuisine",
+        address: "",
+        description: "",
+        contactNumber: ""
+      });
+    }
+  }, [restaurant]);
 
   const onChange = e => {
     setRes({ ...res, [e.target.name]: e.target.value });
+  };
+
+  const onUpdate = () => {
+    updateRestaurant(res);
+  };
+
+  const onClear = () => {
+    clearRestaurant();
   };
 
   const onResModal = e => {
@@ -58,7 +85,9 @@ const CreateResModal = ({ addResData }) => {
                   required
                   onChange={onChange}
                 />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name" className="active">
+                  Name
+                </label>
               </div>
             </div>
             <div className="row">
@@ -123,16 +152,30 @@ const CreateResModal = ({ addResData }) => {
         </div>
       </div>
       <div className="modal-footer">
-        <a href="#!" className="left btn red modal-close waves-effect">
+        <a
+          href="#!"
+          className="left btn red modal-close waves-effect"
+          onClick={onClear}
+        >
           Cancel <i className="material-icons right">clear</i>
         </a>
-        <a
-          href="#dish"
-          className="disabled right btn modal-close waves-effect modal-trigger"
-          onClick={onResModal}
-        >
-          Add Dish
-        </a>
+        {restaurant ? (
+          <a
+            href="#dish"
+            className="disabled right btn modal-close waves-effect"
+            onClick={onUpdate}
+          >
+            Update
+          </a>
+        ) : (
+          <a
+            href="#dish"
+            className="disabled right btn modal-close waves-effect modal-trigger"
+            onClick={onResModal}
+          >
+            Add Dish
+          </a>
+        )}
       </div>
     </div>
   );
