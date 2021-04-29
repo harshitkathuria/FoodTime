@@ -1,5 +1,6 @@
 import {
   CREATE_RES,
+  UPDATE_RESTAURANT,
   SUBMIT_ORDER,
   ERROR,
   GET_MY_ORDERS,
@@ -19,6 +20,17 @@ export default (state, action) => {
         ...state,
         restaurants: [...state.restaurants, action.payload.restaurant],
         orders: null
+      };
+    case UPDATE_RESTAURANT:
+      return {
+        ...state,
+        restaurants: state.restaurants.map(restaurant =>
+          restaurant._id === action.payload.restaurant._id
+            ? action.payload.restaurant
+            : restaurant
+        ),
+        restaurant: null,
+        loading: false
       };
     case SUBMIT_ORDER:
       return state;
@@ -57,6 +69,7 @@ export default (state, action) => {
     case SET_RESTAURANT:
       return {
         ...state,
+        loading: false,
         restaurant: action.payload
       };
     case CLEAR_RES:

@@ -55,12 +55,12 @@ exports.updateRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.findByIdAndUpdate(
       req.params.id,
-      res.body,
+      req.body,
       {
         new: true
       }
     );
-    res.status(201).json({ statsu: "success", data: { restaurant } });
+    res.status(201).json({ status: "success", data: { restaurant } });
   } catch (err) {
     console.log(err.message);
     res.status(400).json({ status: "error", msg: err.message });
