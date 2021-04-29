@@ -7,7 +7,9 @@ import {
   CLEAR_RES,
   GET_MY_DISHES,
   GET_ALL_RES,
-  SET_LOADING
+  SET_LOADING,
+  CLEAR_RESTAURANT,
+  SET_RESTAURANT
 } from "../types";
 
 export default (state, action) => {
@@ -52,6 +54,11 @@ export default (state, action) => {
         loading: false,
         error: null
       };
+    case SET_RESTAURANT:
+      return {
+        ...state,
+        restaurant: action.payload
+      };
     case CLEAR_RES:
       return {
         ...state,
@@ -60,6 +67,11 @@ export default (state, action) => {
         restaurant: null,
         error: null,
         orders: null
+      };
+    case CLEAR_RESTAURANT:
+      return {
+        ...state,
+        restaurant: null
       };
     case ERROR:
       return {

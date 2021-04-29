@@ -4,6 +4,9 @@ import axios from "axios";
 import ResContext from "./resContext";
 import ResReducer from "./resReducer";
 import {
+  SET_RESTAURANT,
+  UPDATE_RESTAURANT,
+  CLEAR_RESTAURANT,
   CLEAR_RES,
   CREATE_RES,
   SUBMIT_ORDER,
@@ -61,6 +64,28 @@ const ResState = props => {
       const res = await axios.post("/api/res", resData, config);
       dispatch({
         type: CREATE_RES,
+        payload: res.data.data
+      });
+    } catch (err) {
+      console.log(err.response.data.msg);
+      dispatch({
+        type: ERROR,
+        payload: err.response.data.msg
+      });
+    }
+  };
+
+  // Update Restaurant
+  const updateRestaurant = async resData => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      const res = await axios.patch(`/api/res/${resData._id}`, resData, config);
+      dispatch({
+        type: UPDATE_RESTAURANT,
         payload: res.data.data
       });
     } catch (err) {
@@ -148,9 +173,22 @@ const ResState = props => {
     }
   };
 
+  // Set current restaurant
+  const setRestaurant = restaurant => {
+    dispatch({
+      type: SET_RESTAURANT,
+      payload: restaurant
+    });
+  };
+
   // Clear restaurants
   const clearRes = () => {
     dispatch({ type: CLEAR_RES });
+  };
+
+  // Clear current restaurant
+  const clearRestaurant = () => {
+    dispatch({ type: CLEAR_RESTAURANT });
   };
 
   return (
@@ -164,10 +202,13 @@ const ResState = props => {
         dishes: state.dishes,
         getAllRes,
         createRes,
+        setRestaurant,
+        updateRestaurant,
         submitOrder,
         getMyOrders,
         getMyRes,
         clearRes,
+        clearRestaurant,
         getDishes,
         setLoading
       }}
